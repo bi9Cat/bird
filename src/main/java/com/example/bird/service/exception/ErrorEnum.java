@@ -12,7 +12,9 @@ public enum ErrorEnum implements IEnum {
     USER_NOT_EXIST("E00000103", "用户信息不存在"),
     USER_PASSWORD_EMPTY("E00000104", "用户密码不能为空"),
     USER_TYPE_IS_EMPTY("E00000105", "用户类型不能为空"),
-    USER_DIRECT_SUPERVISOR_EMPTY("E00000105", "直属主管不能为空"),
+    USER_DIRECT_SUPERVISOR_EMPTY("E00000106", "直属主管不能为空"),
+    USER_PHONE_NUMBER_ERROR("E00000107", "手机号格式不正确"),
+    USER_EMAIL_ERROR("E00000108", "邮箱格式不正确"),
     ;
 
     ErrorEnum(String code, String message) {

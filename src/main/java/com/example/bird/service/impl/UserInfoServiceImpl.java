@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +30,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Autowired
     private DepartmentInfoService departmentInfoService;
+
+    private static final Pattern phoneNumberRegex = Pattern.compile("^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$");
+    private static final Pattern emailRegex = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
 
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(8);
 
@@ -66,6 +70,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (userInfo.getDirectSupervisorId() <= 0) {
             throw new BusinessException(ErrorEnum.USER_DIRECT_SUPERVISOR_EMPTY);
         }
+        if (!phoneNumberRegex.matcher(userInfo.getPhoneNumber()).matches()) {
+            throw new BusinessException(ErrorEnum.USER_PHONE_NUMBER_ERROR);
+        }
+        if (!emailRegex.matcher(userInfo.getEmail()).matches()) {
+            throw new BusinessException(ErrorEnum.USER_EMAIL_ERROR);
+        }
+
     }
 
     @Override
@@ -118,6 +129,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (userInfo.getDirectSupervisorId() <= 0) {
             throw new BusinessException(ErrorEnum.USER_DIRECT_SUPERVISOR_EMPTY);
         }
+        if (!phoneNumberRegex.matcher(userInfo.getPhoneNumber()).matches()) {
+            throw new BusinessException(ErrorEnum.USER_PHONE_NUMBER_ERROR);
+        }
+        if (!emailRegex.matcher(userInfo.getEmail()).matches()) {
+            throw new BusinessException(ErrorEnum.USER_EMAIL_ERROR);
+        }
+
     }
 
     @Override
