@@ -2,9 +2,9 @@ package com.example.bird.model.enums;
 
 import org.apache.commons.lang3.StringUtils;
 
-public enum UserType implements IEnum {
+public enum UserType implements EnumInterface {
     ORDINARY_EMPLOYEES("0", "普通员工"),
-    DEPARTMENT_MANAGER("1", "部门主管");
+    DEPARTMENT_MANAGER("1", "部门主管"),;
 
     private String code;
     private String message;
@@ -25,7 +25,7 @@ public enum UserType implements IEnum {
     }
 
     @Override
-    public IEnum[] allValue() {
+    public EnumInterface[] allValue() {
         return values();
     }
 

@@ -14,12 +14,11 @@ public interface UserInfoService {
      */
     UserInfo createUser(UserInfo userInfo);
 
-
     /**
      * 根据id删除用户
      *
      * @param userId 用户id
-     * @return
+     * @return 是否删除成功
      */
     boolean deleteUser(long userId);
 
@@ -27,7 +26,7 @@ public interface UserInfoService {
      * 更新用户
      *
      * @param userInfo 用户信息
-     * @return
+     * @return 更新后的用户信息
      */
     UserInfo updateUser(UserInfo userInfo);
 
@@ -35,15 +34,15 @@ public interface UserInfoService {
      * 根据用户ID查询用户
      *
      * @param userId 用户id
-     * @return
+     * @return 用户ID为userId的用户信息
      */
     UserInfo queryByUserId(long userId);
 
     /**
      * 修改密码
      *
-     * @param userInfo
-     * @return
+     * @param userInfo 传入用户信息
+     * @return 修改后的用户信息
      */
     UserInfo changePassword(UserInfo userInfo);
 

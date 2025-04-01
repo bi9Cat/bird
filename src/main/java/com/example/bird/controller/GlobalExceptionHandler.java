@@ -15,8 +15,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(exception = Throwable.class)
-    public Result handleException(Exception e) {
-        log.error("system exception.", e);
+    public Result handleException(Exception exception) {
+        LOG.error("system exception.", exception);
         return Result.error();
     }
 }

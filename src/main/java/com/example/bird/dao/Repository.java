@@ -3,7 +3,7 @@ package com.example.bird.dao;
 import java.util.List;
 import java.util.Optional;
 
-public interface IRepository<T, ID> {
+public interface Repository<T, ID> {
     T insert(T entity);
 
     void update(T entity);
@@ -19,6 +19,4 @@ public interface IRepository<T, ID> {
     int deleteById(ID id);
 
     void deleteAllById(Iterable<? extends ID> ids);
-
-
 }

@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @EnableAutoConfiguration
 public class BirdApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(BirdApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(BirdApplication.class, args);
+    }
 }

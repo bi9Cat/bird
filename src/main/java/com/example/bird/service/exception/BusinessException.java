@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class BusinessException extends RuntimeException {
-    private String code;
-    private String message;
+    private final String code;
+    private final String message;
 
     public BusinessException(ErrorEnum errorEnum) {
         if (errorEnum == null) {

@@ -2,10 +2,9 @@ package com.example.bird.model.enums;
 
 import org.apache.commons.lang3.StringUtils;
 
-public enum LoginMethod implements IEnum {
+public enum LoginMethod implements EnumInterface {
     NORMAL_LOGIN("0", "普通登录"),
-    THIRD_LOGIN("0", "第三方登录"),
-    ;
+    THIRD_LOGIN("1", "第三方登录"),;
 
     private String code;
     private String message;
@@ -26,7 +25,7 @@ public enum LoginMethod implements IEnum {
     }
 
     @Override
-    public IEnum[] allValue() {
+    public EnumInterface[] allValue() {
         return values();
     }
 

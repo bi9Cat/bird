@@ -2,11 +2,10 @@ package com.example.bird.model.enums;
 
 import org.apache.commons.lang3.StringUtils;
 
-public enum UserStatus implements IEnum {
+public enum UserStatus implements EnumInterface {
     NORMAL("0", "正常"),
     DELETED("1", "已删除"),
-    STOP("2", "停用"),
-    ;
+    STOP("2", "停用"),;
 
     private String code;
     private String message;
@@ -27,7 +26,7 @@ public enum UserStatus implements IEnum {
     }
 
     @Override
-    public IEnum[] allValue() {
+    public EnumInterface[] allValue() {
         return values();
     }
 

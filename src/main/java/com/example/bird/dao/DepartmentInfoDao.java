@@ -8,27 +8,27 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public class DepartmentInfoDao implements IRepository<DepartmentInfo, Long> {
+@org.springframework.stereotype.Repository
+public class DepartmentInfoDao implements Repository<DepartmentInfo, Long> {
 
-    @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
-
+    private static final String FIELD_SUPERVISOR_ID = "supervisorId";
     private static final RowMapper<DepartmentInfo> DEPARTMENT_INFO_ROW_MAPPER = (rs, rowNum) -> {
         DepartmentInfo departmentInfo = new DepartmentInfo();
         departmentInfo.setId(rs.getLong("id"));
         departmentInfo.setDepartmentName(rs.getString("departmentName"));
         departmentInfo.setStatus(DepartmentStatus.valueOfCode(rs.getString("status")));
-        departmentInfo.setSupervisorId(rs.getLong("supervisorId"));
+        departmentInfo.setSupervisorId(rs.getLong(FIELD_SUPERVISOR_ID));
         departmentInfo.setCreateTime(rs.getLong("createTime"));
         departmentInfo.setUpdateTime(rs.getLong("updateTime"));
         return departmentInfo;
     };
+
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
     public DepartmentInfo insert(DepartmentInfo entity) {
@@ -85,7 +85,7 @@ public class DepartmentInfoDao implements IRepository<DepartmentInfo, Long> {
         try {
             String sql = "select * from tb_department_info where supervisorId = :supervisorId";
             MapSqlParameterSource params = new MapSqlParameterSource();
-            params.addValue("supervisorId", supervisorId);
+            params.addValue(FIELD_SUPERVISOR_ID, supervisorId);
             return jdbcTemplate.query(sql, params, DEPARTMENT_INFO_ROW_MAPPER);
         } catch (DataAccessException e) {
             e.printStackTrace();

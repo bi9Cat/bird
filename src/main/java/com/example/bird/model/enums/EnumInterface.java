@@ -1,13 +1,11 @@
 package com.example.bird.model.enums;
 
-import org.apache.commons.lang3.StringUtils;
-
-public interface IEnum {
+public interface EnumInterface {
     String getCode();
 
     String getMessage();
 
-    IEnum[] allValue();
+    EnumInterface[] allValue();
 
     default int getIntCode() {
         return Integer.parseInt(getCode());
