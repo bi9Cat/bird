@@ -180,7 +180,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public FilterResponse<List<UserInfo>> filter(String userName, String phoneNumber, UserType userType, int page, int pageSize) {
-        log.info("UserInfoServiceImpl filter. userName:{},phoneNumber:{},userType:{},page:{},pageSize:{}",
+        LOG.info("UserInfoServiceImpl filter. userName:{},phoneNumber:{},userType:{},page:{},pageSize:{}",
                 userName, phoneNumber, userType, page, pageSize);
         int count = userInfoDao.count(userName, phoneNumber, userType);
         if (count <= 0) {

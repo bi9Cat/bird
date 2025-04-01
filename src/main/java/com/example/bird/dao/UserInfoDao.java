@@ -125,7 +125,7 @@ public class UserInfoDao implements IRepository<UserInfo, Long> {
             UserInfo result = jdbcTemplate.queryForObject(sql, params, userRowMapper);
             return Optional.ofNullable(result);
         } catch (DataAccessException e) {
-            log.error("UserInfoDao.findById error.", e);
+            LOG.error("UserInfoDao.findById error.", e);
             return Optional.empty();
         }
     }
@@ -146,7 +146,7 @@ public class UserInfoDao implements IRepository<UserInfo, Long> {
             params.addValue("ids", ids);
             return jdbcTemplate.query(sql, params, userRowMapper);
         } catch (DataAccessException e) {
-            log.error("UserInfoDao.findAllById error.", e);
+            LOG.error("UserInfoDao.findAllById error.", e);
             return List.of();
         }
     }
@@ -189,7 +189,7 @@ public class UserInfoDao implements IRepository<UserInfo, Long> {
             Integer count = jdbcTemplate.queryForObject(sql.toString(), params, Integer.class);
             return count == null ? 0 : count;
         } catch (DataAccessException e) {
-            log.error("UserInfoDao.count error.", e);
+            LOG.error("UserInfoDao.count error.", e);
             return 0;
         }
     }
@@ -220,7 +220,7 @@ public class UserInfoDao implements IRepository<UserInfo, Long> {
 
             return jdbcTemplate.query(sql.toString(), params, userRowMapper);
         } catch (DataAccessException e) {
-            log.error("UserInfoDao.queryByUserNameAndPhoneNumber error.", e);
+            LOG.error("UserInfoDao.queryByUserNameAndPhoneNumber error.", e);
             return new ArrayList<>();
         }
     }
