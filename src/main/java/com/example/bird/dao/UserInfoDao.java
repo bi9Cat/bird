@@ -13,14 +13,14 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
-@Service
+@Repository
 public class UserInfoDao implements IRepository<UserInfo, Long> {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;

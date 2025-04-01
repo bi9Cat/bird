@@ -4,8 +4,6 @@ import com.example.bird.controller.response.FilterResponse;
 import com.example.bird.model.UserInfo;
 import com.example.bird.model.enums.UserType;
 
-import java.util.List;
-
 public interface UserInfoService {
 
     /**
