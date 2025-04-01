@@ -4,6 +4,7 @@ import com.example.bird.model.UserInfo;
 import com.example.bird.model.enums.LoginMethod;
 import com.example.bird.model.enums.UserStatus;
 import com.example.bird.model.enums.UserType;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,11 @@ import java.util.List;
 import java.util.Optional;
 
 
+@Slf4j
 @Repository
 public class UserInfoDao implements IRepository<UserInfo, Long> {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-
 
     private static final RowMapper<UserInfo> userRowMapper = ((rs, rowNum) -> {
         UserInfo userInfo = new UserInfo();
@@ -124,7 +125,7 @@ public class UserInfoDao implements IRepository<UserInfo, Long> {
             UserInfo result = jdbcTemplate.queryForObject(sql, params, userRowMapper);
             return Optional.ofNullable(result);
         } catch (DataAccessException e) {
-            // TODO log
+            log.error("UserInfoDao.findById error.", e);
             return Optional.empty();
         }
     }
@@ -145,7 +146,7 @@ public class UserInfoDao implements IRepository<UserInfo, Long> {
             params.addValue("ids", ids);
             return jdbcTemplate.query(sql, params, userRowMapper);
         } catch (DataAccessException e) {
-            e.printStackTrace();
+            log.error("UserInfoDao.findAllById error.", e);
             return List.of();
         }
     }
@@ -186,11 +187,9 @@ public class UserInfoDao implements IRepository<UserInfo, Long> {
             }
             sql.append(" and status != 1");
             Integer count = jdbcTemplate.queryForObject(sql.toString(), params, Integer.class);
-            System.out.println(count);
             return count == null ? 0 : count;
         } catch (DataAccessException e) {
-            // TODO log
-            e.printStackTrace();
+            log.error("UserInfoDao.count error.", e);
             return 0;
         }
     }
@@ -221,8 +220,7 @@ public class UserInfoDao implements IRepository<UserInfo, Long> {
 
             return jdbcTemplate.query(sql.toString(), params, userRowMapper);
         } catch (DataAccessException e) {
-            // TODO log
-            e.printStackTrace();
+            log.error("UserInfoDao.queryByUserNameAndPhoneNumber error.", e);
             return new ArrayList<>();
         }
     }

@@ -10,6 +10,7 @@ import com.example.bird.service.DepartmentInfoService;
 import com.example.bird.service.UserInfoService;
 import com.example.bird.service.exception.BusinessException;
 import com.example.bird.service.exception.ErrorEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.concurrent.Future;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
@@ -178,6 +180,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public FilterResponse<List<UserInfo>> filter(String userName, String phoneNumber, UserType userType, int page, int pageSize) {
+        log.info("UserInfoServiceImpl filter. userName:{},phoneNumber:{},userType:{},page:{},pageSize:{}",
+                userName, phoneNumber, userType, page, pageSize);
         int count = userInfoDao.count(userName, phoneNumber, userType);
         if (count <= 0) {
             return new FilterResponse(page, pageSize);
