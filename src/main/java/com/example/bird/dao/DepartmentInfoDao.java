@@ -2,6 +2,7 @@ package com.example.bird.dao;
 
 import com.example.bird.model.DepartmentInfo;
 import com.example.bird.model.enums.DepartmentStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @org.springframework.stereotype.Repository
 public class DepartmentInfoDao implements Repository<DepartmentInfo, Long> {
 
@@ -61,7 +63,7 @@ public class DepartmentInfoDao implements Repository<DepartmentInfo, Long> {
             params.addValue("ids", ids);
             return jdbcTemplate.query(sql, params, DEPARTMENT_INFO_ROW_MAPPER);
         } catch (DataAccessException e) {
-            e.printStackTrace();
+            LOG.error("DepartmentInfoDao.findAllById error.", e);
             return List.of();
         }
     }
@@ -88,7 +90,7 @@ public class DepartmentInfoDao implements Repository<DepartmentInfo, Long> {
             params.addValue(FIELD_SUPERVISOR_ID, supervisorId);
             return jdbcTemplate.query(sql, params, DEPARTMENT_INFO_ROW_MAPPER);
         } catch (DataAccessException e) {
-            e.printStackTrace();
+            LOG.error("DepartmentInfoDao.queryBySupervisorId error.", e);
             return List.of();
         }
     }
