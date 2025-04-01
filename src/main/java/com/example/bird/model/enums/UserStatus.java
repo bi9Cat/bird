@@ -5,7 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 public enum UserStatus implements EnumInterface {
     NORMAL("0", "正常"),
     DELETED("1", "已删除"),
-    STOP("2", "停用"),;
+    STOP("2", "停用"),
+    ;
 
     private String code;
     private String message;
@@ -13,6 +14,19 @@ public enum UserStatus implements EnumInterface {
     UserStatus(String code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    public static UserStatus valueOfCode(String code) {
+        if (StringUtils.isBlank(code)) {
+            return null;
+        }
+        UserStatus[] values = values();
+        for (UserStatus e : values) {
+            if (StringUtils.equals(e.getCode(), code)) {
+                return e;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -28,19 +42,6 @@ public enum UserStatus implements EnumInterface {
     @Override
     public EnumInterface[] allValue() {
         return values();
-    }
-
-    public static UserStatus valueOfCode(String code) {
-        if (StringUtils.isBlank(code)) {
-            return null;
-        }
-        UserStatus[] values = values();
-        for (UserStatus e : values) {
-            if (StringUtils.equals(e.getCode(), code)) {
-                return e;
-            }
-        }
-        return null;
     }
 
 }

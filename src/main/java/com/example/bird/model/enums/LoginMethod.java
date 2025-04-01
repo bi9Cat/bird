@@ -14,6 +14,19 @@ public enum LoginMethod implements EnumInterface {
         this.message = message;
     }
 
+    public static LoginMethod valueOfCode(String code) {
+        if (StringUtils.isBlank(code)) {
+            return null;
+        }
+        LoginMethod[] values = values();
+        for (LoginMethod e : values) {
+            if (StringUtils.equals(e.getCode(), code)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String getCode() {
         return this.code;
@@ -27,18 +40,5 @@ public enum LoginMethod implements EnumInterface {
     @Override
     public EnumInterface[] allValue() {
         return values();
-    }
-
-    public static LoginMethod valueOfCode(String code) {
-        if (StringUtils.isBlank(code)) {
-            return null;
-        }
-        LoginMethod[] values = values();
-        for (LoginMethod e : values) {
-            if (StringUtils.equals(e.getCode(), code)) {
-                return e;
-            }
-        }
-        return null;
     }
 }

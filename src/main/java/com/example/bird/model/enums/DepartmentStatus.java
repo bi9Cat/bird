@@ -15,6 +15,19 @@ public enum DepartmentStatus implements EnumInterface {
         this.message = message;
     }
 
+    public static DepartmentStatus valueOfCode(String code) {
+        if (StringUtils.isBlank(code)) {
+            return null;
+        }
+        DepartmentStatus[] values = values();
+        for (DepartmentStatus e : values) {
+            if (StringUtils.equals(e.getCode(), code)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String getCode() {
         return this.code;
@@ -28,18 +41,5 @@ public enum DepartmentStatus implements EnumInterface {
     @Override
     public EnumInterface[] allValue() {
         return values();
-    }
-
-    public static DepartmentStatus valueOfCode(String code) {
-        if (StringUtils.isBlank(code)) {
-            return null;
-        }
-        DepartmentStatus[] values = values();
-        for (DepartmentStatus e : values) {
-            if (StringUtils.equals(e.getCode(), code)) {
-                return e;
-            }
-        }
-        return null;
     }
 }

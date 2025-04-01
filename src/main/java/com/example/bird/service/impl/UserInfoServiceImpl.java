@@ -208,15 +208,16 @@ public class UserInfoServiceImpl implements UserInfoService {
             return List.of();
         }
 
-        Map<Long, UserInfo> supervisorsMap = CollectionUtils.isEmpty(supervisors) ? new HashMap<>() : supervisors.stream()
-                .collect(Collectors.toMap(UserInfo::getId, s -> s, (k1, k2) -> k1));
-        Map<Long, DepartmentInfo> departmentInfoMap = CollectionUtils.isEmpty(departmentInfos) ? new HashMap<>() : departmentInfos.stream()
-                .collect(Collectors.toMap(DepartmentInfo::getId, d -> d, (k1, k2) -> k1));
+        Map<Long, UserInfo> supervisorsMap = CollectionUtils.isEmpty(supervisors)
+                ? new HashMap<>()
+                : supervisors.stream().collect(Collectors.toMap(UserInfo::getId, s -> s, (k1, k2) -> k1));
+        Map<Long, DepartmentInfo> departmentInfoMap = CollectionUtils.isEmpty(departmentInfos)
+                ? new HashMap<>()
+                : departmentInfos.stream().collect(Collectors.toMap(DepartmentInfo::getId, d -> d, (k1, k2) -> k1));
 
-        return users.stream().map(u -> {
+        return users.stream().peek(u -> {
             Optional.ofNullable(supervisorsMap.get(u.getDirectSupervisorId())).ifPresent(s -> u.setDirectSupervisorName(s.getUserName()));
             Optional.ofNullable(departmentInfoMap.get(u.getDepartmentId())).ifPresent(d -> u.setDepartmentName(d.getDepartmentName()));
-            return u;
         }).toList();
     }
 }
