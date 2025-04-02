@@ -7,8 +7,8 @@ public enum UserType implements EnumInterface {
     DEPARTMENT_MANAGER("1", "部门主管"),
     ;
 
-    private String code;
-    private String message;
+    private final String code;
+    private final String message;
 
     UserType(String code, String message) {
         this.code = code;
