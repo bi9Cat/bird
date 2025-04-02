@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "User")
+@Tag(name = "用户管理")
 @RestController
 @RequestMapping("/user")
 public class UserInfoController {

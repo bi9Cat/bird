@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
-    private static final int SLEEP_MILLIS = 3000;
+    private static final int SLEEP_MILLIS = 2000;
     private static final int DEFAULT_PAGE_SIZE = 100;
     private static final Pattern PHONE_NUMBER_REGEX = Pattern.compile("^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$");
     private static final Pattern EMAIL_REGEX = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
