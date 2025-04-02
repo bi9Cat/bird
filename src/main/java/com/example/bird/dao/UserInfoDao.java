@@ -1,23 +1,20 @@
 package com.example.bird.dao;
 
 import com.example.bird.model.UserInfo;
-import com.example.bird.model.enums.LoginMethod;
-import com.example.bird.model.enums.UserStatus;
 import com.example.bird.model.enums.UserType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -32,24 +29,6 @@ public class UserInfoDao implements Repository<UserInfo, Long> {
     private static final String AND_USER_NAME_LIKE_USER_NAME = " and userName like :userName";
     private static final String AND_PHONE_NUMBER_LIKE_PHONE_NUMBER = " and phoneNumber like :phoneNumber";
     private static final String AND_USER_TYPE_USER_TYPE = " and userType = :userType";
-
-    private static final RowMapper<UserInfo> USER_ROW_MAPPER = (ResultSet rs, int rowNum) -> {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setId(rs.getLong("id"));
-        userInfo.setUserName(rs.getString("userName"));
-        userInfo.setPhoneNumber(rs.getString("phoneNumber"));
-        userInfo.setEmail(rs.getString("email"));
-        userInfo.setNickName(rs.getString("nickName"));
-        userInfo.setPassword(rs.getString("password"));
-        userInfo.setDirectSupervisorId(rs.getLong("directSupervisorId"));
-        userInfo.setDepartmentId(rs.getLong("departmentId"));
-        userInfo.setUserType(UserType.valueOfCode(rs.getString("userType")));
-        userInfo.setStatus(UserStatus.valueOfCode(rs.getString("status")));
-        userInfo.setLoginMethod(LoginMethod.valueOfCode(rs.getString("loginMethod")));
-        userInfo.setCreateTime(rs.getLong("createTime"));
-        userInfo.setUpdateTime(rs.getLong("updateTime"));
-        return userInfo;
-    };
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -62,16 +41,15 @@ public class UserInfoDao implements Repository<UserInfo, Long> {
         MapSqlParameterSource params = getMapSqlParameterSource(userInfo);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, params, keyHolder);
-        userInfo.setId(keyHolder.getKey().longValue());
+        userInfo.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
         return userInfo;
     }
 
     @Override
     public void update(UserInfo userInfo) {
-        String sql =
-                "update tb_user_info set userName=:userName,phoneNumber=:phoneNumber,email=:email,nickName=:nickName,password=:password,"
-                        + "directSupervisorId=:directSupervisorId,departmentId=:departmentId,userType=:userType,status=:status,loginMethod=:loginMethod,"
-                        + "updateTime=:updateTime where id = :id";
+        String sql = "update tb_user_info set userName=:userName,phoneNumber=:phoneNumber,email=:email,nickName=:nickName,password=:password,"
+                + "directSupervisorId=:directSupervisorId,departmentId=:departmentId,userType=:userType,status=:status,loginMethod=:loginMethod,"
+                + "updateTime=:updateTime where id = :id";
         MapSqlParameterSource params = getMapSqlParameterSource(userInfo);
         params.addValue(ID, userInfo.getId());
         jdbcTemplate.update(sql, params);
