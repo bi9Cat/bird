@@ -1,9 +1,13 @@
 package com.example.bird.model.enums;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.apache.commons.lang3.StringUtils;
 
+@Schema(description = "用户类型")
 public enum UserType implements EnumInterface {
+    @Schema(description = "普通员工")
     ORDINARY_EMPLOYEES("0", "普通员工"),
+    @Schema(description = "部门主管")
     DEPARTMENT_MANAGER("1", "部门主管"),;
     private final String code;
     private final String message;

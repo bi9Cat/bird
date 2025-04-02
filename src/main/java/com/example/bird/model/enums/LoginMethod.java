@@ -1,9 +1,13 @@
 package com.example.bird.model.enums;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.apache.commons.lang3.StringUtils;
 
+@Schema(description = "登录方式")
 public enum LoginMethod implements EnumInterface {
+    @Schema(description = "普通登录")
     NORMAL_LOGIN("0", "普通登录"),
+    @Schema(description = "第三方登录")
     THIRD_LOGIN("1", "第三方登录"),;
 
     private String code;

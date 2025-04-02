@@ -2,12 +2,17 @@ package com.example.bird.controller.response;
 
 import com.example.bird.service.exception.BusinessException;
 import com.example.bird.service.exception.ErrorEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+@Schema(description = "响应结果")
 @Data
 public class Result<T> {
+    @Schema(description = "返回码",requiredMode = Schema.RequiredMode.REQUIRED,example = "E00000000")
     private String code;
+    @Schema(description = "返回码描述",requiredMode = Schema.RequiredMode.REQUIRED,example = "请求成功")
     private String message;
+    @Schema(description = "返回数据")
     private T data;
 
     public Result(String code, String message, T data) {

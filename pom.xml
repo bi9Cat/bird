@@ -78,6 +78,12 @@
             <artifactId>commons-collections4</artifactId>
             <version>${commons-collection4.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.xingfudeshi</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.6.0</version>
+        </dependency>
     </dependencies>
 
     <build>
