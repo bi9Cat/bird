@@ -8,9 +8,9 @@ import lombok.Data;
 @Schema(description = "响应结果")
 @Data
 public class Result<T> {
-    @Schema(description = "返回码",requiredMode = Schema.RequiredMode.REQUIRED,example = "E00000000")
+    @Schema(description = "返回码", requiredMode = Schema.RequiredMode.REQUIRED, example = "E00000000")
     private String code;
-    @Schema(description = "返回码描述",requiredMode = Schema.RequiredMode.REQUIRED,example = "请求成功")
+    @Schema(description = "返回码描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "请求成功")
     private String message;
     @Schema(description = "返回数据")
     private T data;

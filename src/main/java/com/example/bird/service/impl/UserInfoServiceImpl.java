@@ -16,10 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -145,7 +142,12 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new BusinessException(ErrorEnum.USER_PARAM_ERROR);
         }
         Optional<UserInfo> existUser = userInfoDao.findById(userId);
-        return existUser.orElse(null);
+        if (existUser.isPresent()) {
+            UserInfo userInfo = existUser.get();
+            userInfo = fillName(Arrays.asList(userInfo)).get(0);
+            return userInfo;
+        }
+        return null;
     }
 
     @Override
