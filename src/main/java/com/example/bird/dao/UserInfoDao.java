@@ -1,5 +1,6 @@
 package com.example.bird.dao;
 
+import com.example.bird.dao.utils.ResultSetMappingUtil;
 import com.example.bird.model.UserInfo;
 import com.example.bird.model.enums.UserType;
 import lombok.extern.slf4j.Slf4j;
@@ -78,9 +79,10 @@ public class UserInfoDao implements Repository<UserInfo, Long> {
             String sql = "select * from tb_user_info where id = (:id) and status != 1";
             MapSqlParameterSource params = new MapSqlParameterSource();
             params.addValue(ID, aLong);
-            UserInfo result = jdbcTemplate.queryForObject(sql, params, new UserRowMapper());
+            UserInfo result = jdbcTemplate.queryForObject(sql, params,
+                    (rs, row) -> ResultSetMappingUtil.mapResultSetToObject(rs, UserInfo.class));
             return Optional.ofNullable(result);
-        } catch (DataAccessException e) {
+        } catch (Exception e) {
             LOG.error("UserInfoDao.findById error.", e);
             return Optional.empty();
         }
@@ -100,7 +102,7 @@ public class UserInfoDao implements Repository<UserInfo, Long> {
             String sql = "select * from tb_user_info where id in (:ids)";
             MapSqlParameterSource params = new MapSqlParameterSource();
             params.addValue("ids", ids);
-            return jdbcTemplate.query(sql, params, new UserRowMapper());
+            return jdbcTemplate.query(sql, params, (rs, row) -> ResultSetMappingUtil.mapResultSetToObject(rs, UserInfo.class));
         } catch (DataAccessException e) {
             LOG.error("UserInfoDao.findAllById error.", e);
             return List.of();
@@ -173,7 +175,8 @@ public class UserInfoDao implements Repository<UserInfo, Long> {
             }
             sql.append(" and status != 1 limit :offset,:limit");
 
-            return jdbcTemplate.query(sql.toString(), params, new UserRowMapper());
+            return jdbcTemplate.query(sql.toString(), params,
+                    (rs, row) -> ResultSetMappingUtil.mapResultSetToObject(rs, UserInfo.class));
         } catch (DataAccessException e) {
             LOG.error("UserInfoDao.queryByUserNameAndPhoneNumber error.", e);
             return new ArrayList<>();

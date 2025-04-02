@@ -1,5 +1,6 @@
 package com.example.bird.dao;
 
+import com.example.bird.dao.utils.ResultSetMappingUtil;
 import com.example.bird.model.DepartmentInfo;
 import com.example.bird.model.enums.DepartmentStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +62,7 @@ public class DepartmentInfoDao implements Repository<DepartmentInfo, Long> {
             String sql = "select * from tb_department_info where id in (:ids)";
             MapSqlParameterSource params = new MapSqlParameterSource();
             params.addValue("ids", ids);
-            return jdbcTemplate.query(sql, params, DEPARTMENT_INFO_ROW_MAPPER);
+            return jdbcTemplate.query(sql, params, (rs, row) -> ResultSetMappingUtil.mapResultSetToObject(rs, DepartmentInfo.class));
         } catch (DataAccessException e) {
             LOG.error("DepartmentInfoDao.findAllById error.", e);
             return List.of();
@@ -88,7 +89,7 @@ public class DepartmentInfoDao implements Repository<DepartmentInfo, Long> {
             String sql = "select * from tb_department_info where supervisorId = :supervisorId";
             MapSqlParameterSource params = new MapSqlParameterSource();
             params.addValue(FIELD_SUPERVISOR_ID, supervisorId);
-            return jdbcTemplate.query(sql, params, DEPARTMENT_INFO_ROW_MAPPER);
+            return jdbcTemplate.query(sql, params, (rs, row) -> ResultSetMappingUtil.mapResultSetToObject(rs, DepartmentInfo.class));
         } catch (DataAccessException e) {
             LOG.error("DepartmentInfoDao.queryBySupervisorId error.", e);
             return List.of();
